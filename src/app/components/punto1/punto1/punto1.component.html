@@ -1,1 +1,12 @@
-<p>punto1 works!</p>
+<div class="row">
+  <div class="col-md3">
+    <figure>
+      <img class="img-fluid" src="assets/{{ noticia.img}}">
+    </figure>
+
+    <h3>{{noticia.nombre}}</h3>
+  </div>
+</div>
+
+<button (click)="anterior()">Anterior</button>
+<button (click)="siguiente()">Siguiente</button>

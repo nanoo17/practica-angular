@@ -1,4 +1,4 @@
-export class Hotel {
+export class Noticia {
   codigo!: number;
   nombre!: string;
   detalle!: string;
