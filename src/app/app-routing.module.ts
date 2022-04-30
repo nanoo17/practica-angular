@@ -7,7 +7,7 @@ import { Punto3Component } from './components/punto3/punto3/punto3.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: Punto1Component },
   { path: 'punto1', component: Punto1Component },
   { path: 'punto2', component: Punto2Component },
   { path: 'punto3', component: Punto3Component },

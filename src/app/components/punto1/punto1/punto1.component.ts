@@ -43,7 +43,6 @@ export class Punto1Component implements OnInit {
   }
 
 
-
   ngOnInit(): void {
   }
 
