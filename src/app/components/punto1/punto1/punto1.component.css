@@ -1,6 +1,6 @@
 .img-fluid {
-  width: 700px;
-  height: 400px;
+  width: 900px;
+  height: 450px;
 }
 
 .row {
@@ -8,4 +8,15 @@
   padding-right: 0;
   margin-right: 0;
   margin-left: 0;
+}
+
+button {
+  height: 50px;
+  width: 100px;
+}
+
+#slider {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
