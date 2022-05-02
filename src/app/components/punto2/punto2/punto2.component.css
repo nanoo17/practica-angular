@@ -1,0 +1,33 @@
+.container-fluid {
+  background-color: #fff;
+  height: 631px;
+  padding: 2em;
+}
+
+.letra-oculta {
+  display: inline-block;
+  padding: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 5px;
+  width: 50px;
+  text-align: center;
+  border-bottom: 3px solid #666;
+  text-transform: uppercase;
+}
+
+#palo {
+  width: 250px;
+  height: 250px;
+}
+
+#abc {
+  display: inline-block;
+  padding: 0.7em;
+  margin: 3px;
+  width: 60px;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px dashed #5755d9;
+  text-transform: uppercase;
+}
