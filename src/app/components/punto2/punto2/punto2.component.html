@@ -18,9 +18,8 @@
 
     </div>
     <div class="row mt-5">
-      <div class="columns bg-gray" id="abc" *ngFor="let letra of letras">
-        {{letra}}
-      </div>
+      <button id="abc" *ngFor="let letra of letras" type="button" class="btn "
+        (click)="enviarLetra({letra})">{{letra}}</button>
     </div>
   </div>
 </div>

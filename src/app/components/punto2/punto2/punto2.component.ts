@@ -14,6 +14,7 @@ export class Punto2Component implements OnInit {
   intentos: number = 5;
   errores: number = 0;
   letrasEncontradas: string[] = [];
+
   str: string = '';
   constructor() {
     //categoria animales
@@ -44,6 +45,10 @@ export class Punto2Component implements OnInit {
         this.str += `?`
       }
     });
+
+  }
+  enviarLetra(value: any,) {
+    console.log(value)
 
   }
   ngOnInit(): void {
