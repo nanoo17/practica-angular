@@ -10,7 +10,6 @@ export class Punto1Component implements OnInit {
   indice: number = 0;
   noticia!: Noticia;
   constructor() {
-    this.noticias = new Array<Noticia>();
     this.noticias = [{ codigo: 1, nombre: "Noticia 1", detalle: "Noticia Gobernador", img: "noticia1.jpg" },
     { codigo: 1, nombre: "Noticia 2", detalle: "Noticia Denuncia", img: "noticia2.jpg" },
     { codigo: 1, nombre: "Noticia 3", detalle: "Noticia Messi", img: "noticia3.jpg" }
