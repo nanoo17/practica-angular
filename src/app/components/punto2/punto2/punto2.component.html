@@ -18,8 +18,8 @@
 
     </div>
     <div class="row mt-5">
-      <button id="abc" *ngFor="let letra of letras" type="button" class="btn "
-        (click)="enviarLetra({letra})">{{letra}}</button>
+      <button id="abc" *ngFor="let letra of opciones" type="button" (click)="verificarLetra({letra})"
+        [class]="letra.clase">{{letra.letra}}</button>
     </div>
   </div>
 </div>
