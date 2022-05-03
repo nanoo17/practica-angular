@@ -1,9 +1,3 @@
-.container-fluid {
-  background-color: #fff;
-  height: 631px;
-  padding: 2em;
-}
-
 .letra-oculta {
   display: inline-block;
   padding: 0.5em;
@@ -30,4 +24,8 @@
   border-radius: 3px;
   border: 1px dashed #5755d9;
   text-transform: uppercase;
+}
+
+#botones {
+  margin-bottom: 45px;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Palo } from 'src/app/models/palo/palo';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-punto2',
   templateUrl: './punto2.component.html',
@@ -7,23 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class Punto2Component implements OnInit {
-  // letras: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   opciones: Array<{ letra: string, clase: string }> = [{ letra: 'a', clase: "bg-info" }, { letra: 'b', clase: "bg-info" }, { letra: 'c', clase: "bg-info" }, { letra: 'd', clase: "bg-info" }, { letra: 'e', clase: "bg-info" }, { letra: 'f', clase: "bg-info" }, { letra: 'g', clase: "bg-info" }, { letra: 'h', clase: "bg-info" }, { letra: 'i', clase: "bg-info" }, { letra: 'j', clase: "bg-info" }, { letra: 'k', clase: "bg-info" }, { letra: 'l', clase: "bg-info" }, { letra: 'm', clase: "bg-info" }, { letra: 'n', clase: "bg-info" }, { letra: 'ñ', clase: "bg-info" }, { letra: 'o', clase: "bg-info" }, { letra: 'p', clase: "bg-info" }, { letra: 'q', clase: "bg-info" }, { letra: 'r', clase: "bg-info" }, { letra: 's', clase: "bg-info" }, { letra: 't', clase: "bg-info" }, { letra: 'u', clase: "bg-info" }, { letra: 'v', clase: "bg-info" }, { letra: 'w', clase: "bg-info" }, { letra: 'x', clase: "bg-info" }, { letra: 'y', clase: "bg-info" }, { letra: 'z', clase: "bg-info" }];
-  palabras: string[] = ['jaguar', 'cocodrilo', 'leon', 'gato', 'perro', 'jirafa', 'hipopotamo'];
+  palabras: string[] = ['jaguar', 'cocodrilo', 'leon', 'gato', 'perro', 'jirafa', 'hipopotamo', 'cangrejo', 'rata', 'paloma'];
   indice: number = 0;
+  palos!: Array<Palo>;
   palabraSeleccionada!: string;
   intentos: number = 5;
-  errores: number = 0;
+  aciertos: number = 0;
   letrasEncontradas: string[] = [];
   str: string = '';
+  palo!: Palo;
+  indicePalo: number = 0;
   constructor() {
     //categoria animales
+    this.palos = [{ img: "0.png" }, { img: "1.png" }, { img: "2.png" }, { img: "3.png" }, { img: "4.png" }, { img: "5.png" }]
     this.seleccionarPalabra();
     this.mostrarPalabra();
+    this.iniciar();
   }
-
+  recargar() {
+    window.location.reload();
+  }
   iniciar() {
-
+    if (this.indicePalo < this.palos.length) {
+      this.palo = this.palos[this.indicePalo];
+    }
   }
   seleccionarPalabra() {
     let total_palabras = this.palabras.length;
@@ -51,16 +60,53 @@ export class Punto2Component implements OnInit {
     //metodo para verificar letra
     let opt = this.opciones.find(elemento => elemento == value.letra);
     let palabra = this.palabraSeleccionada.split('');
+    let color = false;
     palabra.forEach((e, i) => {
       if (e == opt!.letra) {
         this.letrasEncontradas[i] = e;
         this.mostrarPalabra();
-        opt!.clase = "bg-success";
+        color = true;
+        this.aciertos = this.aciertos + 1;
       }
     });
-    //cambiar color a la letra errada
-    // opt!.clase = "bg-danger";
-    console.log(opt);
+    if (color == false) {
+      opt!.clase = "bg-danger";
+      this.intentos = this.intentos - 1;
+
+      this.indicePalo = this.indicePalo + 1;
+      if (this.indicePalo < this.palos.length) {
+        this.palo = this.palos[this.indicePalo];
+      }
+
+
+    }
+    else {
+      opt!.clase = "bg-success";
+    }
+    if (this.intentos <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Has Perdido!!!!',
+        confirmButtonText: 'Ok',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await Swal.fire('Cambiando Palabra...', '', 'question');
+          this.recargar();
+        }
+      })
+    }
+    else if (this.aciertos == this.palabraSeleccionada.length) {
+      Swal.fire({
+        icon: 'success',
+        title: 'GANASTE!!!!',
+        confirmButtonText: 'Ok',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await Swal.fire('Cambiando Palabra...', '', 'question');
+          this.recargar();
+        }
+      })
+    }
   }
 
 

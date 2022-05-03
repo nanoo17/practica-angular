@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container col-sm-12">
   <div>
     <div class="row mb-5">
       <h1>Adivina el animal</h1>
     </div>
 
-    <div class="row">
+    <div class="row col-12">
       <div class="col-md-8">
         <div>
           <div class="letra-oculta" *ngFor="let item of str.split('')">
@@ -13,11 +13,14 @@
         </div>
       </div>
       <div class="col-md-4">
-        <img id="palo" src="../../../../assets/0.png" alt="Palo">
+        <img id="palo" src="assets/{{palo.img}}" alt="Palo">
       </div>
-
+      <div class="row">
+        <h4>Intentos {{intentos}}</h4>
+        <button class="btn bg-success col-2" (click)="recargar()">Jugar de Nuevo</button>
+      </div>
     </div>
-    <div class="row mt-5">
+    <div id="botones" class="row mt-5 col-md-12">
       <button id="abc" *ngFor="let letra of opciones" type="button" (click)="verificarLetra({letra})"
         [class]="letra.clase">{{letra.letra}}</button>
     </div>
