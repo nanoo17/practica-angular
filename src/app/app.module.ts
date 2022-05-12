@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    Punto1Component,
     Punto2Component,
   ],
   imports: [
