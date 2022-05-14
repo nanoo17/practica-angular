@@ -9,16 +9,11 @@ import { PasajeService } from 'src/app/services/pasaje-service.service';
   styleUrls: ['./punto3.component.css']
 })
 export class Punto3Component implements OnInit {
-
-
-
-
+  //declarando variables
   pasaje!: Pasaje;
   precioTotal!: number;
   pasajes!: Array<Pasaje>;
   action: string = "new";
-
-
   //configurando tabla
   dtOptions: object = {
     data: this.pasajes,
@@ -49,67 +44,101 @@ export class Punto3Component implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if (params['id'] == -1) {
-        this.action = "new"
+        this.action = "new";
       } else {
-        this.action = "edit"
-        this.pasaje = this.pasajeService.readPasaje(params['id'])
-        this.precioTotal = this.pasaje.precioPasaje
+        this.action = "edit";
+        this.pasaje = this.pasajeService.readPasaje(params['id']);
+        this.precioTotal = this.pasaje.precioPasaje;
       }
     })
   }
-  //Metodos formulario
+  //Metodos carga de pasajes
   public limpiarPasaje() {
-    this.pasaje = new Pasaje()
+    this.pasaje = new Pasaje();
   }
 
   public cancelarForm() {
-    this.limpiarPasaje()
+    this.limpiarPasaje();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/punto3', -1])
+    this.router.navigate(['/punto3', -1]);
   }
 
   public guardarPasaje() {
     if (this.action == "new") {
-      this.pasaje.fechaCompra = new Date()
-      this.pasaje.precioPasaje = this.calcularPrecioTotal()
-      this.pasajeService.createPasaje(this.pasaje)
+      this.pasaje.fechaCompra = new Date();
+      this.pasaje.precioPasaje = this.calcularPrecioTotal();
+      this.pasajeService.createPasaje(this.pasaje);
     } else {
-      this.pasaje.precioPasaje = this.calcularPrecioTotal()
-      this.pasajeService.updatePasaje(this.pasaje)
+      this.pasaje.precioPasaje = this.calcularPrecioTotal();
+      this.pasajeService.updatePasaje(this.pasaje);
     }
     this.cancelarForm()
   }
 
   calcularPrecioTotal(): number {
-    var porcentaje = 0
-    if (this.pasaje.categoriaPasajero == "Menor") porcentaje = 0.25
-    else if (this.pasaje.categoriaPasajero == "Jubilado") porcentaje = 0.5
-    return this.pasaje.precioPasaje - (this.pasaje.precioPasaje * porcentaje)
+    let porcentaje = 0
+    if (this.pasaje.categoriaPasajero == "Menor") porcentaje = 0.25;
+    else if (this.pasaje.categoriaPasajero == "Jubilado") porcentaje = 0.5;
+    return this.pasaje.precioPasaje - (this.pasaje.precioPasaje * porcentaje);
   }
 
   public cambiarValor() {
-    this.precioTotal = this.calcularPrecioTotal()
+    this.precioTotal = this.calcularPrecioTotal();
   }
 
   //metodos tabla
   editarPasaje(pasaje: Pasaje) {
-    this.router.navigate(['/punto3', pasaje.idPasaje])
+    this.router.navigate(['/punto3', pasaje.idPasaje]);
   }
   eliminarPasaje(pasaje: Pasaje) {
     this.pasajeService.deletePasaje(pasaje.idPasaje)
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.router.url])
+    this.router.navigate([this.router.url]);
   }
 
   desactivarPasaje(id: number): boolean {
-    var disabled = false
+    var disabled = false;
     this.activatedRoute.params.subscribe(params => {
-      if (params['id'] == id) disabled = true
-      else disabled = false
+      if (params['id'] == id) disabled = true;
+      else disabled = false;
     })
-    return disabled
+    return disabled;
   }
 
+  calcularMenores() {
+    let cantidad = 0;
+    let total = 0;
+    this.pasajes.forEach(pasaje => {
+      if (pasaje.categoriaPasajero === 'Menor') {
+        cantidad++;
+        total += pasaje.precioPasaje;
+      }
+    })
+    return { cantidad, total };
+  }
+
+  calcularAdultos() {
+    let cantidad = 0;
+    let total = 0;
+    this.pasajes.forEach(pasaje => {
+      if (pasaje.categoriaPasajero === 'Adulto') {
+        cantidad++;
+        total += pasaje.precioPasaje;
+      }
+    })
+    return { cantidad, total };
+  }
+  calcularJubilados() {
+    let cantidad = 0;
+    let total = 0;
+    this.pasajes.forEach(pasaje => {
+      if (pasaje.categoriaPasajero === 'Jubilado') {
+        cantidad++;
+        total += pasaje.precioPasaje;
+      }
+    })
+    return { cantidad, total };
+  }
 }

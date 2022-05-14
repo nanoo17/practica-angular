@@ -2,14 +2,13 @@
 <div class="container my-5">
   <div class="mx-auto col-6">
     <form method="post" id="formPasaje" #pasajeForm="ngForm">
-      <!-- DNI pasajero -->
+      <!--DNI-->
       <div class="my-3">
         <label for="dniPasajero" class="label-form">DNI Pasajero</label>
         <input type="number" class="form-control" name="dniPasajero" id="dniPasajero" [(ngModel)]="pasaje.dniPasajero"
           required min="0" #dniPasajero="ngModel">
-        <!-- Validaciones -->
       </div>
-      <!-- precio pasaje -->
+      <!--precio-->
       <div class="my-3">
         <label for="precioPasaje" class="label-form">Precio del Pasaje</label>
         <input type="number" class="form-control" name="precioPasaje" id="precioPasaje"
@@ -17,7 +16,7 @@
           #precioPasaje="ngModel">
 
       </div>
-      <!-- categoria de pasaje -->
+      <!--categoria-->
       <div class="my-3">
         <label for="categoriaPasajero" class="form-label">Categoria de pasajero</label>
         <select name="categoriaPasajero" id="categoriaPasajero" class="form-select"
@@ -33,7 +32,7 @@
         <label for="precioPasaje" class="form-label fw-bold">Precio total del pasaje: {{ precioTotal }}</label>
       </div>
 
-      <!-- botones de operaciones -->
+      <!-- botones -->
       <div class="input-group my-3">
         <button type="button" class="btn btn-primary ms-auto me-2" *ngIf="action == 'edit'"
           [disabled]="pasajeForm.form.invalid" (click)="guardarPasaje()">Modificar</button>
@@ -50,9 +49,10 @@
 </div>
 
 
-<!-- tabla -->
+<!-- tabla de datos-->
 <div class="row">
   <div class="col-8">
+    <h2>Pasajes Vendidos</h2>
     <table datatable [dtOptions]="dtOptions" class="table table-success table-hover">
       <thead>
         <tr>
@@ -66,10 +66,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let pasaje of pasajes">
-          <td>{{pasaje.idPasaje}}</td>
+          <td>{{(pasaje.idPasaje)+1}}</td>
           <td>{{pasaje.dniPasajero}}</td>
           <td>{{pasaje.categoriaPasajero}}</td>
-          <td>{{pasaje.precioPasaje | currency:'ARS$ '}}</td>
+          <td>{{pasaje.precioPasaje | currency:'ARS $'}}</td>
           <td>{{pasaje.fechaCompra | date:'longDate':'GMT-3':'es-AR'}}</td>
           <td>
             <button class="btn btn-warning me-2" [disabled]="desactivarPasaje(pasaje.idPasaje)"
@@ -95,11 +95,26 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let categoria of resumirPasajes()">
-            <td>{{categoria.categoria | mostrarCategoria}}</td>
-            <td>{{categoria.cant}}</td>
-            <td>{{categoria.total | currency:'ARS'}}</td>
+          <!-- <tr *ngFor="let categoria of calcularResumen()">
+            <td>{{categoria.categoria}}</td>
+            <td>{{categoria.cantidad}}</td>
+            <td>{{categoria.total | currency:'Pesos $'}}</td>
           </tr> -->
+          <tr>
+            <td>Menor</td>
+            <td>{{calcularMenores().cantidad}}</td>
+            <td>{{calcularMenores().total | currency:'Pesos $'}}</td>
+          </tr>
+          <tr>
+            <td>Adulto</td>
+            <td>{{calcularAdultos().cantidad}}</td>
+            <td>{{calcularAdultos().total | currency:'Pesos $'}}</td>
+          </tr>
+          <tr>
+            <td>Jubilado</td>
+            <td>{{calcularJubilados().cantidad}}</td>
+            <td>{{calcularJubilados().total | currency:'Pesos $'}}</td>
+          </tr>
       </table>
     </div>
   </div>
