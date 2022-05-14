@@ -1,0 +1,22 @@
+<app-header class="row col-12"></app-header>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>DNI Pasajero</th>
+      <th>Categoria Pasajero</th>
+      <th>Precio</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pasaje of pasajes">
+      <td>{{pasaje.idPasaje}}</td>
+      <td>{{pasaje.dniPasajero}}</td>
+      <td>{{pasaje.categoriaPasajero}}</td>
+      <td>{{pasaje.precioPasaje | currency:'ARS$ '}}</td>
+      <td>{{pasaje.fechaCompra | date:'longDate':'GMT-3':'es-AR'}}</td>
+    </tr>
+  </tbody>
+</table>
+<app-footer class="row col-12"></app-footer>

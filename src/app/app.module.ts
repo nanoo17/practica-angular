@@ -11,6 +11,12 @@ import { Punto2Component } from './components/punto2/punto2/punto2.component';
 import { Punto1Component } from './components/punto1/punto1.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { Punto3Component } from './components/punto3/punto3/punto3.component';
+//importando locales
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+registerLocaleData(localeEsAr, 'es-AR');
+
 //se declaran los componentes que se van a usar a nivel global
 //dentro de la aplicacion
 @NgModule({

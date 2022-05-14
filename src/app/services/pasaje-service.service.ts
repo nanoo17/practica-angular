@@ -7,15 +7,14 @@ import { Pasaje } from '../models/pasaje/pasaje';
 export class PasajeService {
   pasajes!: Array<any>;
   constructor() {
-    //inicializamos el array y le asignamos unos datos para poder consultar.
     this.pasajes = new Array<Pasaje>();
     this.pasajes = [
       {
         idPasaje: 1,
-        dniPasajero: 3884149299,
-        precioPasaje: 3886839322,
+        dniPasajero: 3884142,
+        precioPasaje: 3822,
         categoriaPasajero: "Menor",
-        fecha: "2014-01-01T23:28:56.782Z",
+        fechaCompra: Date.now(),
       },]
   }
 
