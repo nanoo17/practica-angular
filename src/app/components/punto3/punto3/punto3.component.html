@@ -32,7 +32,6 @@
         <label for="precioPasaje" class="form-label fw-bold">Precio total del pasaje: {{ precioTotal }}</label>
       </div>
 
-      <!-- botones -->
       <div class="input-group my-3">
         <button type="button" class="btn btn-primary ms-auto me-2" *ngIf="action == 'edit'"
           [disabled]="pasajeForm.form.invalid" (click)="guardarPasaje()">Modificar</button>
@@ -49,7 +48,7 @@
 </div>
 
 
-<!-- tabla de datos-->
+<!-- tabla de resumen-->
 <div class="row">
   <div class="col-8">
     <h2>Pasajes Vendidos</h2>
@@ -95,11 +94,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let categoria of calcularResumen()">
-            <td>{{categoria.categoria}}</td>
-            <td>{{categoria.cantidad}}</td>
-            <td>{{categoria.total | currency:'Pesos $'}}</td>
-          </tr> -->
           <tr>
             <td>Menor</td>
             <td>{{calcularMenores().cantidad}}</td>

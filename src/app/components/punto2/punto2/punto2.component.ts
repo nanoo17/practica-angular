@@ -87,6 +87,7 @@ export class Punto2Component implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Has Perdido!!!!',
+        text: 'La palabra era: ' + this.palabraSeleccionada,
         confirmButtonText: 'Ok',
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -99,6 +100,7 @@ export class Punto2Component implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'GANASTE!!!!',
+        text: 'La palabra era: ' + this.palabraSeleccionada,
         confirmButtonText: 'Ok',
       }).then(async (result) => {
         if (result.isConfirmed) {
