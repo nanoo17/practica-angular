@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'home', component: Punto1Component },
   { path: 'punto1', component: Punto1Component },
   { path: 'punto2', component: Punto2Component },
-  { path: 'punto3', component: Punto3Component },
+  { path: 'punto3/:id', component: Punto3Component },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 

@@ -5,30 +5,25 @@ import { Pasaje } from '../models/pasaje/pasaje';
   providedIn: 'root'
 })
 export class PasajeService {
-  pasajes!: Array<any>;
+  pasajes!: Array<Pasaje>;
   constructor() {
     this.pasajes = new Array<Pasaje>();
-    this.pasajes = [
-      {
-        idPasaje: 1,
-        dniPasajero: 3884142,
-        precioPasaje: 3822,
-        categoriaPasajero: "Menor",
-        fechaCompra: Date.now(),
-      },]
   }
 
   getIdDisponible(): number {
     if (this.pasajes.length === 0) return 0;
     else return this.pasajes[this.pasajes.length - 1].idPasaje + 1;
   }
-  //CRUD
   getPasajes() {
     return this.pasajes;
   }
-  addPasaje(pasaje: Pasaje) {
+  //CRUD
+  createPasaje(pasaje: Pasaje) {
     pasaje.idPasaje = this.getIdDisponible();
     this.pasajes.push(pasaje);
+  }
+  readPasaje(id: number): Pasaje {
+    return this.pasajes[id]
   }
   updatePasaje(pasaje: Pasaje): void {
     this.pasajes[pasaje.idPasaje] = pasaje

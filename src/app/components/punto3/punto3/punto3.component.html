@@ -1,22 +1,105 @@
-<app-header class="row col-12"></app-header>
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>DNI Pasajero</th>
-      <th>Categoria Pasajero</th>
-      <th>Precio</th>
-      <th>Fecha</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let pasaje of pasajes">
-      <td>{{pasaje.idPasaje}}</td>
-      <td>{{pasaje.dniPasajero}}</td>
-      <td>{{pasaje.categoriaPasajero}}</td>
-      <td>{{pasaje.precioPasaje | currency:'ARS$ '}}</td>
-      <td>{{pasaje.fechaCompra | date:'longDate':'GMT-3':'es-AR'}}</td>
-    </tr>
-  </tbody>
-</table>
-<app-footer class="row col-12"></app-footer>
+<app-header class="margin row col-12"></app-header>
+<div class="container my-5">
+  <div class="mx-auto col-6">
+    <form method="post" id="formPasaje" #pasajeForm="ngForm">
+      <!-- DNI pasajero -->
+      <div class="my-3">
+        <label for="dniPasajero" class="label-form">DNI Pasajero</label>
+        <input type="number" class="form-control" name="dniPasajero" id="dniPasajero" [(ngModel)]="pasaje.dniPasajero"
+          required min="0" #dniPasajero="ngModel">
+        <!-- Validaciones -->
+      </div>
+      <!-- precio pasaje -->
+      <div class="my-3">
+        <label for="precioPasaje" class="label-form">Precio del Pasaje</label>
+        <input type="number" class="form-control" name="precioPasaje" id="precioPasaje"
+          [(ngModel)]="pasaje.precioPasaje" required step="any" min="0" (ngModelChange)="cambiarValor()"
+          #precioPasaje="ngModel">
+
+      </div>
+      <!-- categoria de pasaje -->
+      <div class="my-3">
+        <label for="categoriaPasajero" class="form-label">Categoria de pasajero</label>
+        <select name="categoriaPasajero" id="categoriaPasajero" class="form-select"
+          [(ngModel)]="pasaje.categoriaPasajero" required (ngModelChange)="cambiarValor()" #categoriaPasaje="ngModel">
+          <option value="Menor">Menor</option>
+          <option value="Adulto">Adulto</option>
+          <option value="Jubilado">Jubilado</option>
+        </select>
+
+      </div>
+      <!-- precio total -->
+      <div class="my-3" *ngIf="categoriaPasaje.valid && precioPasaje.valid">
+        <label for="precioPasaje" class="form-label fw-bold">Precio total del pasaje: {{ precioTotal }}</label>
+      </div>
+
+      <!-- botones de operaciones -->
+      <div class="input-group my-3">
+        <button type="button" class="btn btn-primary ms-auto me-2" *ngIf="action == 'edit'"
+          [disabled]="pasajeForm.form.invalid" (click)="guardarPasaje()">Modificar</button>
+        <button type="button" class="btn btn-success ms-auto me-2" *ngIf="action == 'new'"
+          [disabled]="pasajeForm.form.invalid" (click)="guardarPasaje()">Agregar</button>
+        <button type="button" class="btn btn-secondary me-auto" *ngIf="action == 'edit'"
+          (click)="cancelarForm()">Cancelar</button>
+        <button type="button" class="btn btn-danger me-auto" *ngIf="action == 'new'"
+          (click)="limpiarPasaje()">Limpiar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<!-- tabla -->
+<div class="row">
+  <div class="col-6">
+    <table datatable [dtOptions]="dtOptions" class="table table-success table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DNI Pasajero</th>
+          <th>Categoria</th>
+          <th>Precio</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pasaje of pasajes">
+          <td>{{pasaje.idPasaje}}</td>
+          <td>{{pasaje.dniPasajero}}</td>
+          <td>{{pasaje.categoriaPasajero}}</td>
+          <td>{{pasaje.precioPasaje | currency:'ARS$ '}}</td>
+          <td>{{pasaje.fechaCompra | date:'longDate':'GMT-3':'es-AR'}}</td>
+          <td>
+            <button class="btn btn-warning me-2" [disabled]="desactivarPasaje(pasaje.idPasaje)"
+              (click)="editarPasaje(pasaje)"><i></i></button>
+            <button class="btn btn-danger" [disabled]="desactivarPasaje(pasaje.idPasaje)"
+              (click)="eliminarPasaje(pasaje)"><i></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-6 text-center">
+    <h3>Resumen de venta de pasajes</h3>
+    <div class="my-3 table-responsive col-12">
+      <table class="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let categoria of resumirPasajes()">
+            <td>{{categoria.categoria | mostrarCategoria}}</td>
+            <td>{{categoria.cant}}</td>
+            <td>{{categoria.total | currency:'ARS'}}</td>
+          </tr> -->
+      </table>
+    </div>
+  </div>
+</div>
+<app-footer class="margin row col-12"></app-footer>

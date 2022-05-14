@@ -14,6 +14,7 @@ import { Punto3Component } from './components/punto3/punto3/punto3.component';
 //importando locales
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { DataTablesModule } from 'angular-datatables';
 
 registerLocaleData(localeEsAr, 'es-AR');
 
@@ -33,6 +34,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    DataTablesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
